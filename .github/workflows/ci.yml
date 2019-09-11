@@ -26,7 +26,7 @@ jobs:
     - name: Build port
       shell: bash
       run: |
-        vcpkg install --triplet {{  matrix.triplet }} {{ matrix.port }}
+        vcpkg install --triplet ${{  matrix.triplet }} ${{ matrix.port }}
 
     - name: Upload artifact 
       uses: actions/upload-artifact@master
