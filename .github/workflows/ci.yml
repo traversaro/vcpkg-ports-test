@@ -1,0 +1,36 @@
+name: CI
+
+on: [push]
+        
+jobs:
+  # Job that builds, configures, and tests the repository
+  build:
+    name: '[${{ matrix.port }}@${{ matrix.tag }}@${{ matrix.triplet }}@${{ matrix.os }}]'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        port: [pcl, qt5] 
+        tag: [2019.06, 2019.07, 2019.08, master] 
+        triplet: [x64-windows, x86-windows]
+        os: [windows-2016, windows-latest]
+
+    steps:
+    - name: Reset vcpkg to selected tag and bootstrap
+      shell: bash
+      run: |
+        cd ${VCPKG_INSTALLATION_ROOT}
+        git pull
+        git checkout ${{ matrix.tag }}
+        ./bootstrap-vcpkg.sh
+
+    - name: Build port
+      shell: bash
+      run: |
+        vcpkg install {{ matrix.port }}:{{  matrix.triplet }} 
+
+    - name: Upload artifact 
+      uses: actions/upload-artifact@master
+      with:
+        name: '[${{ matrix.port }}@${{ matrix.tag }}@${{ matrix.triplet }}@${{ matrix.os }}]'
+        path: ${VCPKG_INSTALLATION_ROOT}/installed
+
