@@ -11,7 +11,7 @@ jobs:
       matrix:
         port: [pcl, qt5] 
         tag: [2019.06, 2019.08, master] 
-        triplet: [x64-windows, x86-windows]
+        triplet: [x64-windows]
         os: [windows-2016, windows-latest]
 
     steps:
@@ -26,7 +26,7 @@ jobs:
     - name: Build port
       shell: bash
       run: |
-        vcpkg install {{ matrix.port }}:{{  matrix.triplet }} 
+        vcpkg install --triplet {{  matrix.triplet }} {{ matrix.port }}
 
     - name: Upload artifact 
       uses: actions/upload-artifact@master
