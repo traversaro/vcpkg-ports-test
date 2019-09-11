@@ -8,6 +8,7 @@ jobs:
     name: '[${{ matrix.port }}@${{ matrix.tag }}@${{ matrix.triplet }}@${{ matrix.os }}]'
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         port: [pcl, qt5] 
         tag: [2019.06, 2019.08, master] 
