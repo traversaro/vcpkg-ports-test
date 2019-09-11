@@ -10,8 +10,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        port: [pcl, qt5] 
-        tag: [2019.06, 2019.07, 2019.08, master] 
+        port: [opencv3] 
+        tag: [2019.08, master] 
         triplet: [x64-windows]
         os: [windows-2016, windows-latest]
 
